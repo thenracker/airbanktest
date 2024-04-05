@@ -48,6 +48,12 @@ fun PeopleScreen() {
                 modifier = Modifier.padding(vertical = 16.dp),
             )
             people.value.forEach {
+                // TODO člověk do kartičky
+                // - zobrazit přijmení a věk
+                // - tlačítka +- na úpravu věku
+                // TODO po kliku na přidat
+                // - dialog s 2 vstupními polemi (jméno, přijmen)
+                // - validace na to, aby bylo vyplněno
                 Text(
                     text = it.name,
                     color = MaterialTheme.colorScheme.onBackground,
