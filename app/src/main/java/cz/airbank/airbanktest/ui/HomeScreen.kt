@@ -10,10 +10,10 @@ import cz.airbank.airbanktest.ui.theme.AirBankTestTheme
 @Composable
 fun HomeScreen() {
     Column {
-        Text(text = "Hello world")
-        Text(text = "Hello world")
-        Text(text = "Hello world")
-        Text(text = "Hello world")
+        Text(text = "Hello world 2")
+        Text(text = "Hello world 2")
+        Text(text = "Hello world 2")
+        Text(text = "Hello world 2")
     }
 }
 
