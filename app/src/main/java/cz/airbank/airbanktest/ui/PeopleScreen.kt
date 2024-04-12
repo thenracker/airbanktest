@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package cz.airbank.airbanktest.ui
 
 import androidx.compose.foundation.background
@@ -9,33 +11,38 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 
 
 @Composable
 fun PeopleScreen() {
 
-    val people = remember {
-        mutableStateOf(
-            generatePeople(5)
-        )
-    }
+    val people = remember { mutableStateOf(generatePeople(2)) }
+    val createPersonDialogShown = remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -55,11 +62,6 @@ fun PeopleScreen() {
                 modifier = Modifier.padding(vertical = 16.dp),
             )
             people.value.forEachIndexed { index, person ->
-
-                // TODO po kliku na přidat
-                // - dialog s 2 vstupními polemi (jméno, přijmen)
-                // - validace na to, aby bylo vyplněno
-
                 PersonCard(
                     person = person,
                     canMoveUp = index > 0,
@@ -85,9 +87,7 @@ fun PeopleScreen() {
                 //.fillMaxWidth()
                 .align(Alignment.BottomEnd),
             onClick = {
-                val newPeople = generatePeople(5)
-                val oldPeople = people.value
-                people.value = oldPeople + newPeople
+                createPersonDialogShown.value = true
             }
         ) {
             Text(
@@ -97,6 +97,75 @@ fun PeopleScreen() {
                 imageVector = Icons.Default.Add,
                 contentDescription = "Ikona přidat",
             )
+        }
+        if (createPersonDialogShown.value) {
+            PersonInputDialog(
+                onDismiss = { createPersonDialogShown.value = false },
+                onCreatePerson = { newPerson ->
+                    createPersonDialogShown.value = false
+                    val newPeople = people.value.toMutableList()
+                    newPeople.add(newPerson)
+                    people.value = newPeople
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun PersonInputDialog(
+    onDismiss: () -> Unit,
+    onCreatePerson: (Person) -> Unit,
+) {
+    val name = remember { mutableStateOf("") }
+    val surname = remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+    ) {
+        Column(
+            modifier = Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            TextField(
+                value = name.value,
+                onValueChange = { name.value = it },
+                label = { Text(text = "Jméno") },
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Words,
+                ),
+            )
+            TextField(
+                value = surname.value,
+                onValueChange = { surname.value = it },
+                label = { Text(text = "Přijmení") },
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Words,
+                ),
+            )
+            Row(
+                modifier = Modifier.align(Alignment.End),
+            ) {
+                TextButton(onClick = onDismiss) {
+                    Text(text = "Zrušit")
+                }
+                TextButton(
+                    enabled = name.value.isNotEmpty() && surname.value.isNotEmpty(),
+                    onClick = {
+                        onCreatePerson(
+                            Person(
+                                name = name.value,
+                                surname = surname.value,
+                            )
+                        )
+                    },
+                ) {
+                    Text(text = "Uložit")
+                }
+            }
         }
     }
 }

@@ -16,6 +16,22 @@ class MainActivity : ComponentActivity() {
             AirBankTestTheme {
                 // HomeScreen()
                 PeopleScreen()
+
+                // TODO
+                //  Navigační komponenta
+                //  Koin - dependency injection
+                //  Coroutines, ViewModel
+
+                // TODO
+                //  Stahování dat z API
+                //    Zobrazení detailu
+                //  Databáze lokální
+                //  DataStore
+
+                // TODO
+                //  Notifikace
+                //  Senzory
+                //  Mapy...
             }
         }
     }
