@@ -1,8 +1,10 @@
 package cz.airbank.airbanktest.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,8 +12,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +45,8 @@ fun PeopleScreen() {
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
                 .background(color = MaterialTheme.colorScheme.background)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
                 text = "Lidé",
@@ -47,16 +54,28 @@ fun PeopleScreen() {
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(vertical = 16.dp),
             )
-            people.value.forEach {
-                // TODO člověk do kartičky
-                // - zobrazit přijmení a věk
-                // - tlačítka +- na úpravu věku
+            people.value.forEachIndexed { index, person ->
+
                 // TODO po kliku na přidat
                 // - dialog s 2 vstupními polemi (jméno, přijmen)
                 // - validace na to, aby bylo vyplněno
-                Text(
-                    text = it.name,
-                    color = MaterialTheme.colorScheme.onBackground,
+
+                PersonCard(
+                    person = person,
+                    canMoveUp = index > 0,
+                    onUpdate = { updatedPerson ->
+                        val newPeople = people.value.toMutableList()
+                        // newPeople.set(index, updatedPerson)
+                        newPeople[index] = updatedPerson
+                        people.value = newPeople
+                    },
+                    onMoveUp = {
+                        val sortedPeople = people.value.toMutableList()
+                        val upperPerson = sortedPeople[index - 1]
+                        sortedPeople[index - 1] = person
+                        sortedPeople[index] = upperPerson
+                        people.value = sortedPeople
+                    }
                 )
             }
         }
@@ -78,6 +97,57 @@ fun PeopleScreen() {
                 imageVector = Icons.Default.Add,
                 contentDescription = "Ikona přidat",
             )
+        }
+    }
+}
+
+@Composable
+fun PersonCard(
+    person: Person,
+    canMoveUp: Boolean,
+    onUpdate: (Person) -> Unit,
+    onMoveUp: () -> Unit,
+) {
+    Card {
+        Text(
+            text = "${person.name} ${person.surname}",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        )
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+        ) {
+            Text(text = "Věk:")
+            IconButton(onClick = {
+                onUpdate(person.copy(age = person.age - 1))
+            }) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = "Snížit věk",
+                )
+            }
+            Text(text = person.age.toString())
+            IconButton(onClick = {
+                onUpdate(person.copy(age = person.age + 1))
+            }) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowUp,
+                    contentDescription = "Zvýšit věk",
+                )
+            }
+        }
+        if (canMoveUp) {
+            Button(
+                onClick = { onMoveUp() },
+                modifier = Modifier.align(Alignment.End),
+            ) {
+                Text(text = "Posunout výše")
+            }
         }
     }
 }
