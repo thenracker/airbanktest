@@ -66,6 +66,10 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation)
 
+    // Dependency injection (Koin)
+    implementation(libs.koin.android)
+    implementation(libs.koin.android.compose)
+
 
     testImplementation(libs.junit)
 

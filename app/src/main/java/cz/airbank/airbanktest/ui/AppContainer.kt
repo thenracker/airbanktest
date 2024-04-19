@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cz.airbank.airbanktest.ui.home.HomeScreen
+import cz.airbank.airbanktest.ui.people.PeopleScreen
 
 @Composable
 fun AppContainer() {

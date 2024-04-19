@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package cz.airbank.airbanktest.ui
+package cz.airbank.airbanktest.ui.people
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,10 +36,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun PeopleScreen() {
+fun PeopleScreen(
+    viewModel: PeopleViewModel = koinViewModel(),
+) {
 
     val people = remember { mutableStateOf(generatePeople(2)) }
     val createPersonDialogShown = remember { mutableStateOf(false) }
@@ -60,6 +63,10 @@ fun PeopleScreen() {
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(vertical = 16.dp),
+            )
+            Text(
+                text = viewModel.test(),
+                color = MaterialTheme.colorScheme.primary,
             )
             people.value.forEachIndexed { index, person ->
                 PersonCard(

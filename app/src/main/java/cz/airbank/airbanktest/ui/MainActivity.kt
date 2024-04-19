@@ -1,11 +1,9 @@
-package cz.airbank.airbanktest
+package cz.airbank.airbanktest.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import cz.airbank.airbanktest.ui.AppContainer
-import cz.airbank.airbanktest.ui.HomeScreen
-import cz.airbank.airbanktest.ui.PeopleScreen
 import cz.airbank.airbanktest.ui.theme.AirBankTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,12 +17,11 @@ class MainActivity : ComponentActivity() {
                 AppContainer()
 
                 // TODO
-                //  Koin - dependency injection
-                //  Coroutines, ViewModel
-
-                // TODO
+                //  Coroutines, Flow, ViewModel
                 //  Stahování dat z API
                 //    Zobrazení detailu
+
+                // TODO
                 //  Databáze lokální
                 //  DataStore
 

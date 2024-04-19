@@ -1,4 +1,4 @@
-package cz.airbank.airbanktest.ui
+package cz.airbank.airbanktest.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
