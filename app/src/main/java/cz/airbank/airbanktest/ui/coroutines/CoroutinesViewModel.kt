@@ -2,13 +2,14 @@ package cz.airbank.airbanktest.ui.coroutines
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.airbank.airbanktest.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class CoroutinesViewModel : ViewModel() {
+class CoroutinesViewModel : BaseViewModel() {
 
     // TODO načítání, chybový stav / success stav
 
@@ -29,7 +30,7 @@ class CoroutinesViewModel : ViewModel() {
     }
 
     fun exampleCoroutines() {
-        viewModelScope.launch {
+        launch {
             _state.emit("Start")
             delay(1_000)
             _state.emit("Po 1. vteřině")
