@@ -15,6 +15,7 @@ import cz.airbank.airbanktest.ui.theme.AirBankTestTheme
 @Composable
 fun HomeScreen(
     navigateToPeople: () -> Unit,
+    navigateToCoroutines: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -23,6 +24,9 @@ fun HomeScreen(
     ) {
         Button(onClick = navigateToPeople) {
             Text(text = "Seznam lidí (bez databáze)")
+        }
+        Button(onClick = navigateToCoroutines) {
+            Text(text = "Coroutines obrazovka")
         }
     }
 }
@@ -34,6 +38,7 @@ private fun Preview() {
     AirBankTestTheme {
         HomeScreen(
             navigateToPeople = {},
+            navigateToCoroutines = {},
         )
     }
 }
