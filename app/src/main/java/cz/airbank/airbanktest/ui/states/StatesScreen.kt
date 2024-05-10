@@ -17,11 +17,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun StatesScreen(
     viewModel: StatesViewModel = koinViewModel(),
+    onBack: () -> Unit,
 ) {
 
     val state = viewModel.launchState.collectAsState()
 
-    StateHost(state = state.value) {
+    StateHost(
+        state = state.value,
+        onCancel = onBack,
+    ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
@@ -46,6 +50,8 @@ fun StatesScreen(
 @Composable
 private fun Preview() {
     AirBankTestTheme {
-        StatesScreen()
+        StatesScreen(
+            onBack = {}
+        )
     }
 }

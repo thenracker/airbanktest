@@ -30,7 +30,9 @@ fun AppContainer() {
                 CoroutinesScreen()
             }
             composable(DestinationStates) {
-                StatesScreen()
+                StatesScreen(
+                    onBack = { controller.popBackStack() }
+                )
             }
         }
     )

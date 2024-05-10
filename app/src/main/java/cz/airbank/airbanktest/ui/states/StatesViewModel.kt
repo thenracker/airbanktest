@@ -12,6 +12,7 @@ class StatesViewModel : BaseViewModel() {
     fun performAction() {
         launch {
             delay(2000)
+            throw Exception("Ukončeno spojení")
         }
     }
 }
