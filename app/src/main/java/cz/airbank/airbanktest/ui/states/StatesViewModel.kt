@@ -2,6 +2,7 @@ package cz.airbank.airbanktest.ui.states
 
 import cz.airbank.airbanktest.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 class StatesViewModel : BaseViewModel() {
 
@@ -12,7 +13,9 @@ class StatesViewModel : BaseViewModel() {
     fun performAction() {
         launch {
             delay(2000)
-            throw Exception("Ukončeno spojení")
+            if (Random.nextBoolean()) {
+                throw Exception("Ukončeno spojení")
+            }
         }
     }
 }

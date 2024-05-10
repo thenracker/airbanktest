@@ -17,8 +17,7 @@ class MainActivity : ComponentActivity() {
                 AppContainer()
 
                 // TODO
-                //  Coroutines, Flow, ViewModel
-                //  Stahování dat z API
+                //  Stahování dat z API !
                 //    Zobrazení detailu
 
                 // TODO
