@@ -16,6 +16,7 @@ import cz.airbank.airbanktest.ui.theme.AirBankTestTheme
 fun HomeScreen(
     navigateToPeople: () -> Unit,
     navigateToCoroutines: () -> Unit,
+    navigateToStates: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -28,6 +29,9 @@ fun HomeScreen(
         Button(onClick = navigateToCoroutines) {
             Text(text = "Coroutines obrazovka")
         }
+        Button(onClick = navigateToStates) {
+            Text(text = "Stavy")
+        }
     }
 }
 
@@ -39,6 +43,7 @@ private fun Preview() {
         HomeScreen(
             navigateToPeople = {},
             navigateToCoroutines = {},
+            navigateToStates = {},
         )
     }
 }

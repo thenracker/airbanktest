@@ -27,7 +27,6 @@ abstract class BaseViewModel : ViewModel() {
     // TODO MutableStateFlow na stav
     // TODO launch typu Result namísto Unit
     protected fun launch(
-
         block: (suspend CoroutineScope.() -> Unit),
     ) {
         // TODO řešit chyby CoroutineExceptionHandler...
