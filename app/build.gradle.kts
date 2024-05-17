@@ -70,6 +70,13 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.android.compose)
 
+    // Retrofit
+    implementation(libs.retrofit)
+
+    // Kotlinx serialization
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.retrofit.converter)
+
 
     testImplementation(libs.junit)
 
