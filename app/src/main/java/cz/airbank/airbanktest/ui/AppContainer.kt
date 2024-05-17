@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import cz.airbank.airbanktest.ui.coroutines.CoroutinesScreen
 import cz.airbank.airbanktest.ui.home.HomeScreen
 import cz.airbank.airbanktest.ui.people.PeopleScreen
+import cz.airbank.airbanktest.ui.spacex.SpaceXScreen
 import cz.airbank.airbanktest.ui.states.StatesScreen
 
 @Composable
@@ -21,6 +22,7 @@ fun AppContainer() {
                     navigateToPeople = { controller.navigate(DestinationPeople) },
                     navigateToCoroutines = { controller.navigate(DestinationCoroutines) },
                     navigateToStates = { controller.navigate(DestinationStates) },
+                    navigateToSpaceX = { controller.navigate(DestinationSpaceX) }
                 )
             }
             composable(DestinationPeople) {
@@ -34,6 +36,9 @@ fun AppContainer() {
                     onBack = { controller.popBackStack() }
                 )
             }
+            composable(DestinationSpaceX) {
+                SpaceXScreen()
+            }
         }
     )
 }
@@ -42,3 +47,4 @@ private const val DestinationHome = "home"
 private const val DestinationPeople = "people"
 private const val DestinationCoroutines = "coroutines"
 private const val DestinationStates = "states"
+private const val DestinationSpaceX = "spaceX"

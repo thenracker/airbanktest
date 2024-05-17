@@ -17,6 +17,7 @@ fun HomeScreen(
     navigateToPeople: () -> Unit,
     navigateToCoroutines: () -> Unit,
     navigateToStates: () -> Unit,
+    navigateToSpaceX: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -32,6 +33,9 @@ fun HomeScreen(
         Button(onClick = navigateToStates) {
             Text(text = "Stavy")
         }
+        Button(onClick = navigateToSpaceX) {
+            Text(text = "Space X")
+        }
     }
 }
 
@@ -44,6 +48,7 @@ private fun Preview() {
             navigateToPeople = {},
             navigateToCoroutines = {},
             navigateToStates = {},
+            navigateToSpaceX = {},
         )
     }
 }
