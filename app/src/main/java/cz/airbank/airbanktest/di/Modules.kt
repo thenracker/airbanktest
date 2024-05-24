@@ -6,6 +6,7 @@ import cz.airbank.airbanktest.data.repositories.SpaceXRepo
 import cz.airbank.airbanktest.ui.coroutines.CoroutinesViewModel
 import cz.airbank.airbanktest.ui.people.PeopleViewModel
 import cz.airbank.airbanktest.ui.spacex.SpaceXViewModel
+import cz.airbank.airbanktest.ui.spacex.detail.RocketDetailViewModel
 import cz.airbank.airbanktest.ui.states.StatesViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
@@ -28,8 +29,11 @@ val uiModule = module {
     viewModel { PeopleViewModel() }
     viewModel { CoroutinesViewModel() }
     viewModel { StatesViewModel() }
+
     // viewModel { SpaceXViewModel(get()) }
     viewModelOf(::SpaceXViewModel)
+
+    viewModel { (rocketId: String) -> RocketDetailViewModel(rocketId, get()) }
 
     // TODO
     //  DBViewModel

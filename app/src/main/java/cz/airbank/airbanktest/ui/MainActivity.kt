@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
                 AppContainer()
 
                 // TODO
-                //  Stahování dat z API !
                 //    Zobrazení detailu
 
                 // TODO

@@ -7,4 +7,7 @@ class SpaceXRepo(
 ) {
 
     suspend fun fetchLaunches() = api.fetchLaunches()
+
+    suspend fun fetchRocketDetail(id: String) = api.fetchRocketDetail(rocketId = id)
+
 }
