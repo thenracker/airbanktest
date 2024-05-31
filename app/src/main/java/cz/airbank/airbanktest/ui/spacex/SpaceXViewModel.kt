@@ -19,7 +19,7 @@ class SpaceXViewModel(
 
     fun fetchLaunches() {
         launch {
-            val launches = spaceXRepo.fetchLaunches()
+            val launches = spaceXRepo.fetchOrSelectLaunches()
             _launches.emit(launches)
         }
     }

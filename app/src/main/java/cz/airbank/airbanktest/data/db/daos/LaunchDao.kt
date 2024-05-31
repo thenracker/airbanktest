@@ -19,4 +19,7 @@ interface LaunchDao {
     @Query("Select * From LaunchEntity")
     fun selectAllFlow(): Flow<List<LaunchEntity>>
 
+    @Query("Delete From LaunchEntity")
+    suspend fun deleteAll()
+
 }
