@@ -17,9 +17,6 @@ class MainActivity : ComponentActivity() {
                 AppContainer()
 
                 // TODO
-                //    Zobrazení detailu
-
-                // TODO
                 //  Databáze lokální
                 //  DataStore
 

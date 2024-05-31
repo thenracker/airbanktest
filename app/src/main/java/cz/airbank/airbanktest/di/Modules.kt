@@ -1,7 +1,9 @@
 package cz.airbank.airbanktest.di
 
+import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import cz.airbank.airbanktest.data.SpaceXApi
+import cz.airbank.airbanktest.data.db.AppDatabase
 import cz.airbank.airbanktest.data.repositories.SpaceXRepo
 import cz.airbank.airbanktest.ui.coroutines.CoroutinesViewModel
 import cz.airbank.airbanktest.ui.people.PeopleViewModel
@@ -11,6 +13,7 @@ import cz.airbank.airbanktest.ui.states.StatesViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
@@ -19,10 +22,9 @@ import retrofit2.Retrofit
 
 
 val dataModule = module {
-    // TODO
-    //  DB
     repositories()
     api()
+    db()
 }
 
 val uiModule = module {
@@ -42,6 +44,21 @@ val uiModule = module {
 private fun Module.api() {
     single { createRetrofit() }
     single { get<Retrofit>().create(SpaceXApi::class.java) }
+}
+
+private fun Module.db() {
+    // DB
+    single {
+        Room.databaseBuilder(
+            context = androidApplication(),
+            klass = AppDatabase::class.java,
+            name = AppDatabase.Name,
+        ).build()
+    }
+
+    // DAO
+    single { get<AppDatabase>().launchDao() }
+    single { get<AppDatabase>().rocketDao() }
 }
 
 private fun Module.repositories() {
