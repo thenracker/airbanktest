@@ -85,6 +85,9 @@ dependencies {
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
 
+    // Datastore
+    implementation(libs.datastore)
+
 
     testImplementation(libs.junit)
 

@@ -3,7 +3,6 @@ package cz.airbank.airbanktest.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import cz.airbank.airbanktest.ui.AppContainer
 import cz.airbank.airbanktest.ui.theme.AirBankTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,17 +12,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AirBankTestTheme {
-
                 AppContainer()
-
-                // TODO
-                //  Databáze lokální
-                //  DataStore
-
-                // TODO
-                //  Notifikace
-                //  Senzory
-                //  Mapy...
             }
         }
     }

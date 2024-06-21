@@ -1,8 +1,11 @@
 package cz.airbank.airbanktest.di
 
+import android.content.Context
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import cz.airbank.airbanktest.data.SpaceXApi
+import cz.airbank.airbanktest.data.datastore.Storage
 import cz.airbank.airbanktest.data.db.AppDatabase
 import cz.airbank.airbanktest.data.repositories.SpaceXRepo
 import cz.airbank.airbanktest.ui.coroutines.CoroutinesViewModel
@@ -20,12 +23,14 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import kotlin.math.sin
 
 
 val dataModule = module {
     repositories()
     api()
     db()
+    dataStore()
 }
 
 val uiModule = module {
@@ -37,9 +42,6 @@ val uiModule = module {
     viewModelOf(::SpaceXViewModel)
 
     viewModel { (rocketId: String) -> RocketDetailViewModel(rocketId, get()) }
-
-    // TODO
-    //  DBViewModel
 }
 
 private fun Module.api() {
@@ -61,6 +63,15 @@ private fun Module.db() {
     single { get<AppDatabase>().launchDao() }
     single { get<AppDatabase>().rocketDao() }
 }
+
+private fun Module.dataStore() {
+    single {
+        Storage(androidApplication().dataStore)
+    }
+}
+
+private val Context.dataStore by preferencesDataStore(Storage.DataStoreName)
+
 
 private fun Module.repositories() {
     //factory { SpaceXRepo(get(), get(), get(), get(), get()) }
